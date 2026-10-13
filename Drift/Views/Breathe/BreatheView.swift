@@ -52,13 +52,6 @@ struct BreatheView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 28) {
-                Picker("Pattern", selection: $pattern) {
-                    ForEach(BreathPattern.all) { Text($0.name).tag($0) }
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal, 24)
-                .disabled(running)
-
                 Text(pattern.detail)
                     .font(.subheadline)
                     .foregroundStyle(.white.opacity(0.7))
@@ -101,10 +94,18 @@ struct BreatheView: View {
                 MeshBackdrop(palette: palette, speed: 0.5, amplitude: 0.1)
                     .ignoresSafeArea()
             }
-            .padding(.top, 12)
+            .safeAreaPadding(.top, 16)
             .navigationTitle("Breathe")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    Picker("Pattern", selection: $pattern) {
+                        ForEach(BreathPattern.all) { Text($0.name).tag($0) }
+                    }
+                    .pickerStyle(.segmented)
+                    .frame(width: 250)
+                    .disabled(running)
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("History", systemImage: "clock.arrow.circlepath") {}
                 }
