@@ -91,7 +91,7 @@ jobs:
           REC=$!
           sleep 2
           xcrun simctl launch "$UDID" "$BUNDLE_ID" -DemoScreen tour
-          sleep 62
+          sleep 50
           kill -INT $REC; wait $REC || true
           ls -la out
 
@@ -103,3 +103,10 @@ jobs:
             out/
             build.log
           if-no-files-found: warn
+
+      - name: Shut down simulator
+        if: always()
+        run: |
+          pkill -f "simctl io" || true
+          xcrun simctl shutdown all || true
+          killall -9 com.apple.CoreSimulator.CoreSimulatorService 2>/dev/null || true

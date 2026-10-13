@@ -93,7 +93,7 @@ struct BreatheView: View {
                 }
                 .buttonStyle(.glassProminent)
                 .tint(running ? Color.white.opacity(0.18) : Color(hex: 0x4FA3A5))
-                .padding(.bottom, 30)
+                .padding(.bottom, 84) // clear the mini player accessory
             }
             .foregroundStyle(.white)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -101,7 +101,9 @@ struct BreatheView: View {
                 MeshBackdrop(palette: palette, speed: 0.5, amplitude: 0.1)
                     .ignoresSafeArea()
             }
+            .padding(.top, 12)
             .navigationTitle("Breathe")
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("History", systemImage: "clock.arrow.circlepath") {}
